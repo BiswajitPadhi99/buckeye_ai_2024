@@ -198,7 +198,7 @@ def load_digitization_model(model_folder, verbose):
 # Load your trained dx classification model. This function is *required*. You should edit this function to add your code, but do
 # *not* change the arguments of this function. If you do not train a dx classification model, then you can return None.
 def load_dx_model(model_folder, verbose):
-    filename = os.path.join(model_folder, 'classification_model.sav')
+    filename =os.path.join(model_folder, 'classification_model.sav')
     model_dict = joblib.load(filename)
     torch_model_path = model_dict['model']
     model_dict['model'] = torch.load(torch_model_path)
@@ -282,7 +282,7 @@ def save_digitization_model(model_folder, model):
 
 # Save your trained dx classification model.
 def save_dx_model(model_folder, model, classes):
-    filename = os.path.join(model_folder, 'base_cnn.pth')
+    filename = model_folder+'/base_cnn.pth'
     torch.save(model, filename)
     sav_filename = os.path.join(model_folder,'classification_model.sav')
     d = {'model': filename, 'classes': classes}

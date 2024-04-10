@@ -200,7 +200,9 @@ def load_digitization_model(model_folder, verbose):
 def load_dx_model(model_folder, verbose):
     filename =os.path.join(model_folder, 'classification_model.sav')
     model_dict = joblib.load(filename)
-    torch_model_path = model_dict['model']
+    torch_model_folder = model_dict['model_folder']
+    torch_model_filename = model_dict['model']
+    torch_model_path = os.path.join(torch_model_folder, torch_model_filename)
     model_dict['model'] = torch.load(torch_model_path)
     return model_dict
 
@@ -282,10 +284,10 @@ def save_digitization_model(model_folder, model):
 
 # Save your trained dx classification model.
 def save_dx_model(model_folder, model, classes):
-    filename = model_folder+'/base_cnn.pth'
-    torch.save(model, filename)
+    model_filename = 'base_cnn.pth'
+    torch.save(model, os.path.join(model_folder, model_filename))
     sav_filename = os.path.join(model_folder,'classification_model.sav')
-    d = {'model': filename, 'classes': classes}
+    d = {'model_folder':model_folder, 'model': model_filename, 'classes': classes}
     #print(d)
     joblib.dump(d, sav_filename, protocol=0)
     #print('dx model saved')

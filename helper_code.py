@@ -174,6 +174,7 @@ def get_image_files_from_header(string):
 def get_dxs_from_header(string):
     dxs, has_dx = get_variables(string, '#Dx:')
     if not has_dx:
+        print(string)
         raise Exception('No dx classes available: are you trying to load the classes from the held-out dataset, or did you forget to prepare the data to include the classes?')
     return dxs
 
